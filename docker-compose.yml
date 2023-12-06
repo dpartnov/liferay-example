@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  portal:
+    container_name: portal_official
+    image: liferay/portal:7.4.3.102-ga102
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    volumes:
+      - ./deploy:/opt/liferay/deploy
+
+  
