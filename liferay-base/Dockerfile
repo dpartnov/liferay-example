@@ -16,11 +16,8 @@ RUN set -xe \
     zip \
     telnet \
     curl \
+    inotify-tools \
     openjdk-${JAVA_VERSION}-jdk
-
-RUN set -xe \
-  && apt-get -y install \
-    inotify-tools
 
 ##
 ## Liferay base steps
@@ -33,7 +30,7 @@ USER root
 
 # Prepare Liferay user and home folders
 RUN set -xe \
-  && mkdir -p ${LIFERAY_HOME} ${LIFERAY_HOME}/deploy ${LIFERAY_HOME}/logs \
+  && mkdir ${LIFERAY_HOME} \
   && groupadd --gid 1001 liferay \
   && useradd --uid 1001 --gid liferay --shell /bin/bash --home-dir ${LIFERAY_HOME} -M liferay \
   && chown -R liferay:liferay ${LIFERAY_HOME}
@@ -47,7 +44,7 @@ WORKDIR /opt/liferay
 ##
 
 RUN set -xe \
-  # Install Liferay
+  # Install Liferay, prepare folders
   && ARCHIVE_URL="https://releases-cdn.liferay.com/portal/7.4.3.102-ga102/liferay-ce-portal-tomcat-7.4.3.102-ga102-20231109165213885.tar.gz" \
   && curl -LfS --http1.1 -o /tmp/liferay.tar.gz ${ARCHIVE_URL} \
   && tar -xzf /tmp/liferay.tar.gz -C ${LIFERAY_HOME} --strip-components=1 \
@@ -56,6 +53,7 @@ RUN set -xe \
   && mkdir -p ${LIFERAY_HOME}/deploy ${LIFERAY_HOME}/logs ${LIFERAY_HOME}/osgi/modules
 
 RUN set -xe \
+  # Clean up
   && rm -rf \
     ${LIFERAY_HOME}/data/elasticsearch* \
     ${LIFERAY_HOME}/data/hsql \

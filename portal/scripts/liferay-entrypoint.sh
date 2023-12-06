@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#All artifacts should be put into artifacts folder, since deploy folder is often overriden with empty folder when binding.
 ARTIFACTS_DIR="$LIFERAY_HOME/artifacts"
 
 
