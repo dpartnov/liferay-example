@@ -1,0 +1,45 @@
+version: '3'
+
+
+volumes:
+  postgresql_etc:
+  postgresql_log:
+  postgresql_data:
+
+services:
+
+  _liferay-base:
+    image: liferay-base:7.4.3.102
+    build:
+      context: liferay-base
+      dockerfile: Dockerfile
+
+  portal:
+    container_name: portal
+    build:
+      context: portal
+      dockerfile: Dockerfile
+    depends_on:
+      - _liferay-base
+      - database
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    volumes:
+      - ./deploy:/opt/liferay/deploy
+
+  database:
+    container_name: postgresql
+    image: postgres:11.22-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql_etc:/etc/postgresql/
+      - postgresql_log:/var/log/postgresql/
+      - postgresql_data:/var/lib/postgresql/
+      - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      INIT: "TRUE"
+      POSTGRES_USER: liferay
+      POSTGRES_DB: liferay
+      POSTGRES_PASSWORD: liferay
