@@ -28,6 +28,14 @@ services:
     volumes:
       - ./portal/deploy:/opt/liferay/deploy
 
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+
   database:
     container_name: postgresql
     image: postgres:11.22-alpine
