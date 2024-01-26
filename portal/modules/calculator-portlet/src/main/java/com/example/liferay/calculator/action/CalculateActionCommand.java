@@ -31,7 +31,6 @@ import static com.example.liferay.calculator.constants.CalculatorPortletKeys.ATT
                 "javax.portlet.name=" + CalculatorPortletKeys.CALCULATOR,
                 "mvc.command.name=" + CalculatorPortletKeys.ACTION_CALCULATE
         },
-        configurationPid = CalculatorPortletKeys.CONFIGURATION_PID,
         service = MVCActionCommand.class)
 public class CalculateActionCommand extends BaseMVCActionCommand {
 

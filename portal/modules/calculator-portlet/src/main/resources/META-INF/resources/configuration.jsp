@@ -1,4 +1,4 @@
-<%@ include file="./init.jsp" %>
+<%@ include file="init.jsp" %>
 
 <%@ page import="com.liferay.portal.kernel.util.Constants" %>
 
