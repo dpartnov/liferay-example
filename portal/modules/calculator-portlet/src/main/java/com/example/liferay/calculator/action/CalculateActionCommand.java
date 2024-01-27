@@ -1,15 +1,14 @@
 package com.example.liferay.calculator.action;
 
+import com.example.liferay.calculator.configuration.CalculatorConfiguration;
+import com.example.liferay.calculator.constants.CalculatorPortletKeys;
 import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
-import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.example.liferay.calculator.configuration.CalculatorConfiguration;
-import com.example.liferay.calculator.constants.CalculatorPortletKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -35,7 +34,8 @@ import static com.example.liferay.calculator.constants.CalculatorPortletKeys.ATT
 public class CalculateActionCommand extends BaseMVCActionCommand {
 
     @Reference
-    private ConfigurationProvider _configurationProvider;
+    private ConfigurationProvider configurationProvider;
+
     @Override
     protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
         //Load properties from FE:
@@ -58,7 +58,7 @@ public class CalculateActionCommand extends BaseMVCActionCommand {
         try {
             final ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
             if (themeDisplay != null) {
-                final CalculatorConfiguration configuration = _configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class,themeDisplay);
+                final CalculatorConfiguration configuration = configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class, themeDisplay);
                 return configuration.annualRate();
             }
         } catch (ConfigurationException e) {
@@ -91,13 +91,4 @@ public class CalculateActionCommand extends BaseMVCActionCommand {
         }
     }
 
-    //        CalculatorApiClient client = Feign.builder()
-//                .client(new OkHttpClient())
-////                .encoder(new GsonEncoder())
-////                .decoder(new GsonDecoder())
-////                .logger(new Slf4jLogger(CalculatorApiClient.class))
-////                .logLevel(Logger.Level.FULL)
-//                .target(CalculatorApiClient.class, "http://localhost:8081/calculator");
-//
-//        CalculatorResultDto result = client.create(loanAmmount, months, annualRate);
 }

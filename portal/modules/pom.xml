@@ -15,6 +15,7 @@
     <modules>
         <module>hello-world-portlet</module>
         <module>calculator-portlet</module>
+<!--        <module>calculator-test</module>-->
     </modules>
 
     <build>

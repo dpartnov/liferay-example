@@ -10,10 +10,10 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
         id = CalculatorPortletKeys.CONFIGURATION_PID)
 public interface CalculatorConfiguration {
 
-    @Meta.AD(deflt = "6.9")
+    @Meta.AD(deflt = "6.9", required = false)
     double annualRate();
 
-    @Meta.AD(deflt = "7.1")
+    @Meta.AD(deflt = "7.1", required = false)
     double rpsn();
 
 }

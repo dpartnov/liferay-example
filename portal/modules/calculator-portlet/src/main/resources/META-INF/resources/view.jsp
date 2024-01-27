@@ -6,14 +6,9 @@
 </portlet:actionURL>
 
 <p>
-    <b><liferay-ui:message key="calculator.annualRateText"/> <c:out value="${annualRate}"/></b><br>
-    <b><liferay-ui:message key="calculator.rpsnText"/> <c:out value="${rpsn}"/></b>
+	<b><liferay-ui:message key="calculator.annualRateText"/> <c:out value="${annualRate}" /></b><br>
+	<b><liferay-ui:message key="calculator.rpsnText"/> <c:out value="${rpsn}" /></b>
 </p>
-
-<fmt:setLocale value="en"/>
-<fmt:formatNumber type="number"
-                  pattern="0.00" value="${CalculatorPortletKeys.ATTR_AMOUNT}"
-                  var="loanAmount"/>
 
 <aui:form action="${calculateUrl}" method="post" name="calculateForm">
     <aui:input name="<%= CalculatorPortletKeys.ATTR_AMOUNT %>"

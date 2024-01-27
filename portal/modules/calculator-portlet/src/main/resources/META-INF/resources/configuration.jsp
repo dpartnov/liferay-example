@@ -12,7 +12,7 @@
     <aui:form action="<%= configurationActionURL %>" method="post" name="config-form">
         <div class="portlet-configuration-body-content">
             <div class="container-fluid-1280">
-                <aui:fieldset-group markupView="lexicon">
+                <aui:fieldset markupView="lexicon">
 
                     <aui:fieldset collapsed="true" collapsible="true" label="Configuration">
                         <aui:input name="<%= Constants.CMD %>"
@@ -23,20 +23,18 @@
                                    value="<%= configurationRenderURL %>"/>
 
                         <aui:input name="annualRate"
-                                   label="Úroková sazba: "
-                                   type="number"
+                                   label="calculator.annualRateText"
                                    value="${annualRate}"
                         />
 
                         <aui:input name="rpsn"
-                                   label="RPSN: "
-                                   type="number"
+                                   label="calculator.rpsnText"
                                    value="${rpsn}"
                         />
 
                     </aui:fieldset>
 
-                </aui:fieldset-group>
+                </aui:fieldset>
             </div>
         </div>
 

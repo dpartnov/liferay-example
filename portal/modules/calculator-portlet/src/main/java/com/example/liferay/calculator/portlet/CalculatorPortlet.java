@@ -1,14 +1,14 @@
 package com.example.liferay.calculator.portlet;
 
+import com.example.liferay.calculator.configuration.CalculatorConfiguration;
+import com.example.liferay.calculator.constants.CalculatorPortletKeys;
+import com.example.liferay.calculator.utils.Utils;
 import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.example.liferay.calculator.configuration.CalculatorConfiguration;
-import com.example.liferay.calculator.constants.CalculatorPortletKeys;
-import com.example.liferay.calculator.utils.Utils;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -19,11 +19,14 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import java.io.IOException;
 
+/**
+ * @author dpart
+ */
 @Component(
         immediate = true,
         property = {
                 "com.liferay.portlet.display-category=category.sample",
-                "com.liferay.portlet.header-portlet-css=/css/main.css",
+                "com.liferay.portlet.header-portlet-css=/css/main.scss",
                 "com.liferay.portlet.instanceable=true",
                 "javax.portlet.display-name=Calculator",
                 "javax.portlet.init-param.template-path=/",
@@ -37,8 +40,7 @@ import java.io.IOException;
 public class CalculatorPortlet extends MVCPortlet {
 
     @Reference
-    private ConfigurationProvider _configurationProvider;
-
+    private ConfigurationProvider configurationProvider;
     @Override
     public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
             throws IOException, PortletException {
@@ -71,7 +73,7 @@ public class CalculatorPortlet extends MVCPortlet {
         try {
             final ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
             if (themeDisplay != null) {
-                final CalculatorConfiguration configuration = _configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class,themeDisplay);
+                final CalculatorConfiguration configuration = configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class, themeDisplay);
                 return configuration.annualRate();
             } else {
                 return -1;
@@ -85,7 +87,7 @@ public class CalculatorPortlet extends MVCPortlet {
         try {
             final ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
             if (themeDisplay != null) {
-                final CalculatorConfiguration configuration = _configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class,themeDisplay);
+                final CalculatorConfiguration configuration = configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class, themeDisplay);
                 return configuration.rpsn();
             } else {
                 return -1;
