@@ -15,10 +15,7 @@ public class CalculatorPortletKeys {
 	public static final String ATTR_MONTHS = "months";
 	public static final int DEFAULT_MONTHS = 12;
 	public static final String ATTR_ANNUAL_RATE = "annualRate";
-	public static final double DEFAULT_ANNUAL_RATE = 6.9;
 	public static final String ATTR_RPSN = "rpsn";
-	public static final double DEFAULT_RPSN = 7.1;
-
 	public static final String ATTR_RESULT = "result";
 
 }

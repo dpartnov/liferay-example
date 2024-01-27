@@ -1,7 +1,13 @@
 package com.example.liferay.calculator.utils;
 
+import com.example.liferay.calculator.configuration.CalculatorConfiguration;
+import com.example.liferay.calculator.constants.CalculatorPortletKeys;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
+
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
+import javax.servlet.http.HttpServletRequest;
 
 import static com.example.liferay.calculator.constants.CalculatorPortletKeys.ATTR_AMOUNT;
 import static com.example.liferay.calculator.constants.CalculatorPortletKeys.ATTR_MONTHS;
@@ -19,16 +25,6 @@ public class Utils {
 
     public static int getResult(PortletRequest request) {
         return getIntSessionAttribute(request, ATTR_RESULT, PortletSession.PORTLET_SCOPE);
-    }
-
-    private static double getDoubleSessionAttribute(PortletRequest request, String name, int scope) {
-        final PortletSession portletSession = request.getPortletSession();
-        double value = 0.0;
-        final Double valueAttr = (Double) portletSession.getAttribute(name, scope);
-        if (valueAttr != null) {
-            value = valueAttr;
-        }
-        return value;
     }
 
     private static int getIntSessionAttribute(PortletRequest request, String name, int scope) {

@@ -1,6 +1,7 @@
 package com.example.liferay.calculator.action;
 
 import com.example.liferay.calculator.configuration.CalculatorConfiguration;
+import com.example.liferay.calculator.configuration.CalculatorConfigurationAction;
 import com.example.liferay.calculator.constants.CalculatorPortletKeys;
 import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
@@ -11,6 +12,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -33,6 +36,8 @@ import static com.example.liferay.calculator.constants.CalculatorPortletKeys.ATT
         service = MVCActionCommand.class)
 public class CalculateActionCommand extends BaseMVCActionCommand {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CalculateActionCommand.class);
+
     @Reference
     private ConfigurationProvider configurationProvider;
 
@@ -44,7 +49,7 @@ public class CalculateActionCommand extends BaseMVCActionCommand {
         //Load property from config:
         double annualRate = getAnnualRateFromConfig(actionRequest);
         //Calculate monthly payments via REST API:
-        System.out.println("Params: " + months + ", " + loanAmmount + ", " + annualRate);
+        LOG.info("Send calculation request to backend: months={}, loanAmmount={}, annualRate={}", months, loanAmmount, annualRate);
         int monthlyPayment = calculateMonthlyPayment(loanAmmount, months, annualRate);
 
         //Save results to session attribute:

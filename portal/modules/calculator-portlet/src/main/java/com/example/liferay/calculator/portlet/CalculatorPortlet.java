@@ -6,7 +6,6 @@ import com.example.liferay.calculator.utils.Utils;
 import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
@@ -30,6 +29,7 @@ import java.io.IOException;
                 "com.liferay.portlet.instanceable=true",
                 "javax.portlet.display-name=Calculator",
                 "javax.portlet.init-param.template-path=/",
+                "javax.portlet.init-param.config-template=/configuration.jsp",
                 "javax.portlet.init-param.view-template=/view.jsp",
                 "javax.portlet.name=" + CalculatorPortletKeys.CALCULATOR,
                 "javax.portlet.resource-bundle=content.Language",
@@ -41,6 +41,7 @@ public class CalculatorPortlet extends MVCPortlet {
 
     @Reference
     private ConfigurationProvider configurationProvider;
+
     @Override
     public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
             throws IOException, PortletException {
@@ -70,28 +71,17 @@ public class CalculatorPortlet extends MVCPortlet {
     }
 
     private double getAnnualRateFromConfig(RenderRequest renderRequest) {
-        try {
-            final ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-            if (themeDisplay != null) {
-                final CalculatorConfiguration configuration = configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class, themeDisplay);
-                return configuration.annualRate();
-            } else {
-                return -1;
-            }
-        } catch (ConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+        return getConfiguration(renderRequest).annualRate();
     }
 
     private double getRpsnFromConfig(RenderRequest renderRequest) {
+        return getConfiguration(renderRequest).rpsn();
+    }
+
+    private CalculatorConfiguration getConfiguration(RenderRequest renderRequest) {
+        final ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
         try {
-            final ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-            if (themeDisplay != null) {
-                final CalculatorConfiguration configuration = configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class, themeDisplay);
-                return configuration.rpsn();
-            } else {
-                return -1;
-            }
+            return configurationProvider.getPortletInstanceConfiguration(CalculatorConfiguration.class, themeDisplay);
         } catch (ConfigurationException e) {
             throw new RuntimeException(e);
         }
