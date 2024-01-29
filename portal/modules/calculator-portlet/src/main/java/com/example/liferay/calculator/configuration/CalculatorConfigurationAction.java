@@ -4,7 +4,6 @@ import com.example.liferay.calculator.constants.CalculatorPortletKeys;
 import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
-import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -20,6 +19,7 @@ import javax.portlet.PortletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// https://learn.liferay.com/w/dxp/building-applications/developing-a-java-web-application/using-mvc/portlet-preferences#create-the-configuration-action
 @Component(
         configurationPid = CalculatorPortletKeys.CONFIGURATION_PID,
         configurationPolicy = ConfigurationPolicy.OPTIONAL,
@@ -39,7 +39,7 @@ public class CalculatorConfigurationAction extends DefaultConfigurationAction {
             PortletConfig portletConfig, ActionRequest actionRequest,
             ActionResponse actionResponse)
             throws Exception {
-
+        // Reads the portlet preferences from the configuration form and stores them in the database.
         final String annualRate = ParamUtil.getString(actionRequest, CalculatorPortletKeys.ATTR_ANNUAL_RATE);
         final String rpsn = ParamUtil.getString(actionRequest, CalculatorPortletKeys.ATTR_RPSN);
         LOG.info("Processing configuration action! AnnualRate={} , RPSN={}", annualRate, rpsn);

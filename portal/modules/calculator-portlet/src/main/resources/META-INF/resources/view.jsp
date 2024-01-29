@@ -16,6 +16,7 @@
                required="true"
                label="calculator.firstInputText"
                value="${loanAmount}">
+<%--        https://help.liferay.com/hc/en-us/articles/360020446511-Building-Forms-with-AUI-Tags--%>
         <aui:validator name="min" errorMessage="calculator.firstInputError">10000</aui:validator>
         <aui:validator name="max" errorMessage="calculator.firstInputError">100000000</aui:validator>
         <aui:validator name="digits"/>

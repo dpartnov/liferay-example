@@ -7,9 +7,7 @@ public class CalculatorPortletKeys {
 		"com_example_liferay_calculator_portlet_CalculatorPortlet";
 	public static final String CONFIGURATION_PID =
 			"com_example_liferay_calculator_configuration_CalculatorConfiguration";
-
 	public static final String ACTION_CALCULATE = "calculateAction";
-
 	public static final String ATTR_AMOUNT = "loanAmount";
 	public static final int DEFAULT_AMOUNT = 10000;
 	public static final String ATTR_MONTHS = "months";
