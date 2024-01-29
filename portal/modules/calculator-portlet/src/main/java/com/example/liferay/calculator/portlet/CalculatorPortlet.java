@@ -52,14 +52,6 @@ public class CalculatorPortlet extends MVCPortlet {
         int loanAmmount = Utils.getLoanAmmount(renderRequest) == 0 ? 100000 : Utils.getLoanAmmount(renderRequest);
         int months = Utils.getMonths(renderRequest) == 0 ? 12 : Utils.getMonths(renderRequest);
 
-        //Save properties to session:
-        final PortletSession portletSession = renderRequest.getPortletSession();
-        portletSession.setAttribute(CalculatorPortletKeys.ATTR_ANNUAL_RATE, annualRate);
-        portletSession.setAttribute(CalculatorPortletKeys.ATTR_RPSN, rpsn);
-        portletSession.setAttribute(CalculatorPortletKeys.ATTR_AMOUNT, loanAmmount);
-        portletSession.setAttribute(CalculatorPortletKeys.ATTR_MONTHS, months);
-        portletSession.setAttribute(CalculatorPortletKeys.ATTR_RESULT, Utils.getResult(renderRequest));
-
         //Set properties to render request for FE view:
         renderRequest.setAttribute(CalculatorPortletKeys.ATTR_ANNUAL_RATE, annualRate);
         renderRequest.setAttribute(CalculatorPortletKeys.ATTR_RPSN, rpsn);
